@@ -65,9 +65,19 @@ git push -u origin main
 Before pushing to a public repo:
 
 - run `./scripts/scan-secrets.sh`
+- run `./scripts/scan-privacy.sh`
 - run `git diff --cached` and verify no keys/tokens/passwords appear
 - move machine-private aliases/work paths/hostnames into `~/.zshrc.local` if you do not want them public
 - keep `~/.zshrc.local` and `*.local` out of git
+
+Optional deeper audit:
+
+- run `./scripts/scan-secrets.sh --history` before first public release
+
+If scans fail:
+
+- move sensitive lines to local-only files like `~/.zshrc.local`
+- rotate credentials if a real secret was ever committed
 
 ## Safe pattern for local secrets
 

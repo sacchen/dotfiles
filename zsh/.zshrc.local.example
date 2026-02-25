@@ -1,4 +1,14 @@
 # Copy this to ~/.zshrc.local and keep real secrets there (not in git).
-# Example:
+# Secrets example:
 # export OPENAI_API_KEY="..."
 # export GITHUB_TOKEN="..."
+
+# Private aliases/machine-specific settings example:
+# alias transmit="cd ~/foundry/sandbox/Flattransmitter && uv run broadcast.py"
+# alias deploy-exchange="rsync -avz --delete \
+#   --filter=':- .gitignore' \
+#   --exclude={'.venv','.DS_Store','__pycache__','state.json','*.log','.pytest_cache','.mypy_cache'} \
+#   ~/foundry/sandbox/order-book-global/short-your-friends/python-prototype/ \
+#   exchange:~/python-prototype/ && \
+#   ssh exchange 'sudo systemctl restart exchange' && \
+#   echo '[+] Deployed!'"

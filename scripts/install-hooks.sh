@@ -14,6 +14,7 @@ cat > "${HOOKS_DIR}/pre-commit" <<'EOF'
 #!/usr/bin/env bash
 set -euo pipefail
 "$(git rev-parse --show-toplevel)/scripts/scan-secrets.sh"
+"$(git rev-parse --show-toplevel)/scripts/scan-privacy.sh"
 EOF
 
 chmod +x "${HOOKS_DIR}/pre-commit"
