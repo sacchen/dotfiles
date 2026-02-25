@@ -44,7 +44,14 @@ cd ~/dotfiles
 ./scripts/stow-all.sh
 ```
 
-## 4) Push to GitHub
+## 4) Install commit-time secret scanning
+
+```bash
+cd ~/dotfiles
+./scripts/install-hooks.sh
+```
+
+## 5) Push to GitHub
 
 ```bash
 git branch -M main
@@ -52,6 +59,15 @@ git remote add origin git@github.com:<you>/dotfiles.git
 git commit -m "Initial dotfiles backup"
 git push -u origin main
 ```
+
+## Public repo safety checklist
+
+Before pushing to a public repo:
+
+- run `./scripts/scan-secrets.sh`
+- run `git diff --cached` and verify no keys/tokens/passwords appear
+- move machine-private aliases/work paths/hostnames into `~/.zshrc.local` if you do not want them public
+- keep `~/.zshrc.local` and `*.local` out of git
 
 ## Safe pattern for local secrets
 
