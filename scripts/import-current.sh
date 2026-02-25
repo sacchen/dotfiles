@@ -6,6 +6,8 @@ HOME_DIR="${HOME}"
 
 mkdir -p \
   "${ROOT}/zsh" \
+  "${ROOT}/git" \
+  "${ROOT}/ssh/.ssh" \
   "${ROOT}/config/.config" \
   "${ROOT}/homebrew" \
   "${ROOT}/manifests"
@@ -34,7 +36,10 @@ scan_for_secrets() {
 # Copy shell + prompt config
 copy_if_exists "${HOME_DIR}/.zshrc" "${ROOT}/zsh/.zshrc"
 copy_if_exists "${HOME_DIR}/.zprofile" "${ROOT}/zsh/.zprofile"
+copy_if_exists "${HOME_DIR}/.gitconfig" "${ROOT}/git/.gitconfig"
+copy_if_exists "${HOME_DIR}/.config/git/ignore" "${ROOT}/config/.config/git/ignore"
 copy_if_exists "${HOME_DIR}/.config/starship.toml" "${ROOT}/config/.config/starship.toml"
+copy_if_exists "${HOME_DIR}/.config/gh/config.yml" "${ROOT}/config/.config/gh/config.yml"
 
 # Copy neovim config without nested git metadata.
 if [[ -d "${HOME_DIR}/.config/nvim" ]]; then
@@ -42,8 +47,18 @@ if [[ -d "${HOME_DIR}/.config/nvim" ]]; then
   mkdir -p "${ROOT}/config/.config"
   rsync -a --delete \
     --exclude ".git" \
+    --exclude ".github" \
+    --exclude "doc" \
+    --exclude "README.md" \
+    --exclude "LICENSE.md" \
+    --exclude ".gitignore" \
     --exclude ".nvimlog" \
     "${HOME_DIR}/.config/nvim/" "${ROOT}/config/.config/nvim/"
+  # Keep only runtime-relevant nvim config for portability.
+  rm -rf "${ROOT}/config/.config/nvim/.github" "${ROOT}/config/.config/nvim/doc"
+  rm -f "${ROOT}/config/.config/nvim/README.md" \
+    "${ROOT}/config/.config/nvim/LICENSE.md" \
+    "${ROOT}/config/.config/nvim/.gitignore"
   echo "copied: ${HOME_DIR}/.config/nvim -> ${ROOT}/config/.config/nvim (excluding .git)"
 else
   echo "missing: ${HOME_DIR}/.config/nvim"
@@ -51,7 +66,10 @@ fi
 
 scan_for_secrets "${ROOT}/zsh/.zshrc"
 scan_for_secrets "${ROOT}/zsh/.zprofile"
+scan_for_secrets "${ROOT}/git/.gitconfig"
+scan_for_secrets "${ROOT}/config/.config/git/ignore"
 scan_for_secrets "${ROOT}/config/.config/starship.toml"
+scan_for_secrets "${ROOT}/config/.config/gh/config.yml"
 
 # Export Homebrew package state if available.
 if command -v brew >/dev/null 2>&1; then

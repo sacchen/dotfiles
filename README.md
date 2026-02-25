@@ -6,8 +6,12 @@ This repo uses GNU Stow so files in this repo are the source of truth and your h
 
 - `zsh/.zshrc` -> `~/.zshrc`
 - `zsh/.zprofile` -> `~/.zprofile`
+- `git/.gitconfig` -> `~/.gitconfig`
+- `config/.config/git/ignore` -> `~/.config/git/ignore`
 - `config/.config/starship.toml` -> `~/.config/starship.toml`
+- `config/.config/gh/config.yml` -> `~/.config/gh/config.yml`
 - `config/.config/nvim/` -> `~/.config/nvim/`
+- `ssh/.ssh/config.example` -> template only (do not auto-link as real SSH config)
 - `homebrew/Brewfile` -> `~/Brewfile`
 - `scripts/` helper scripts
 
@@ -69,6 +73,8 @@ Before pushing to a public repo:
 - run `./scripts/public-audit.sh` for a full tracked+history pass
 - run `git diff --cached` and verify no keys/tokens/passwords appear
 - move machine-private aliases/work paths/hostnames into `~/.zshrc.local` if you do not want them public
+- do not commit `~/.ssh/config` with real hosts/IPs; keep a template (`config.example`) only
+- do not commit `~/.config/gh/hosts.yml` (contains auth tokens)
 - keep `~/.zshrc.local` and `*.local` out of git
 
 Optional deeper audit:

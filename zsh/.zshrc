@@ -22,5 +22,5 @@ alias server='PYTHONPATH=src uv run server.py'
 alias swapcaps="hidutil property --set '{\"UserKeyMapping\":[{\"HIDKeyboardModifierMappingSrc\":0x700000039,\"HIDKeyboardModifierMappingDst\":0x700000029},{\"HIDKeyboardModifierMappingSrc\":0x700000029,\"HIDKeyboardModifierMappingDst\":0x700000039}]}'"
 alias resetcaps="hidutil property --set '{\"UserKeyMapping\":[]}'"
 
-# Local machine-only settings (tokens, private env vars, etc.)
+# Local machine-only settings (tokens, private env vars, private aliases)
 [[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"

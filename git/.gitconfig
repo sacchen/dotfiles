@@ -1,0 +1,12 @@
+[user]
+	name = Samuel Chen
+	email = 119898205+sacchen@users.noreply.github.com
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[init]
+	defaultBranch = main
+[pull]
+	rebase = false

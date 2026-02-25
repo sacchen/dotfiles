@@ -19,3 +19,6 @@ id_ed25519.pub
 
 # Optional generated manifests
 manifests/uv-tools.txt
+
+# gh auth material (never commit)
+config/.config/gh/hosts.yml

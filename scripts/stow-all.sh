@@ -15,5 +15,5 @@ if [[ "${1:-}" == "--adopt" ]]; then
 fi
 
 cd "${ROOT}"
-stow ${ADOPT_FLAG} --target "${TARGET}" zsh config homebrew
+stow ${ADOPT_FLAG} --target "${TARGET}" zsh config git homebrew
 echo "stow complete"
