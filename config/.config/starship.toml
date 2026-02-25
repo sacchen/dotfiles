@@ -1,0 +1,127 @@
+# ~/.config/starship.toml
+
+add_newline = false
+command_timeout = 3000
+scan_timeout = 50
+
+format = """
+$username\
+$hostname\
+$directory\
+$python\
+$rust\
+$git_branch\
+$git_status\
+$cmd_duration\
+$jobs\
+$line_break\
+$status\
+$character"""
+
+# -----------------------------
+# CHARACTER
+# -----------------------------
+
+[character]
+success_symbol = "[λ](bold purple) "
+error_symbol   = "[λ](bold red) "
+
+# -----------------------------
+# USERNAME
+# -----------------------------
+
+[username]
+show_always = false
+format = "[$user]($style)@"
+style_user = "bold dimmed white"
+style_root = "bold white bg:red"
+#style_root = "bold red"
+
+# -----------------------------
+# HOSTNAME
+# -----------------------------
+
+[hostname]
+ssh_only = true
+format = "[$hostname]($style) "
+style = "bold dimmed white"
+
+# -----------------------------
+# DIRECTORY
+# -----------------------------
+
+[directory]
+style = "bold cyan"
+truncate_to_repo = true
+truncation_length = 3
+read_only = " [RO]"
+
+# -----------------------------
+# PYTHON (STRICT: VENV ONLY)
+# -----------------------------
+
+[python]
+disabled = false
+format = "via [py $version](yellow) "
+detect_files = []
+detect_extensions = []
+detect_env_vars = []
+detect_folders = [".venv"]
+
+# -----------------------------
+# RUST
+# -----------------------------
+
+[rust]
+symbol = "rs "
+format = "[$symbol($version)]($style) "
+style = "bold red"
+
+# -----------------------------
+# CMD DURATION
+# -----------------------------
+
+[cmd_duration]
+min_time = 2000
+format = "took [$duration]($style) "
+style = "dimmed italic white"
+
+# -----------------------------
+# GIT
+# -----------------------------
+
+[git_branch]
+symbol = ""
+style = "bold green"
+format = "[$branch]($style) "
+
+[git_status]
+format = "([$all_status$ahead_behind]($style) )"
+conflicted = "!"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕"
+untracked = "?"
+stashed = "$"
+modified = "~"
+staged = "+"
+renamed = "»"
+deleted = "✘"
+style = "bold red"
+
+# -----------------------------
+# JOBS
+# -----------------------------
+
+[jobs]
+threshold = 1
+symbol = "✦"
+style = "bold yellow"
+format = "[$symbol]($style) "
+
+
+# status
+[status]
+disabled = false
+format = "[✘ $status]($style) "
+style = "bold red"
