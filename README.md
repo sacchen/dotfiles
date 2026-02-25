@@ -66,6 +66,7 @@ Before pushing to a public repo:
 
 - run `./scripts/scan-secrets.sh`
 - run `./scripts/scan-privacy.sh`
+- run `./scripts/public-audit.sh` for a full tracked+history pass
 - run `git diff --cached` and verify no keys/tokens/passwords appear
 - move machine-private aliases/work paths/hostnames into `~/.zshrc.local` if you do not want them public
 - keep `~/.zshrc.local` and `*.local` out of git
@@ -73,6 +74,10 @@ Before pushing to a public repo:
 Optional deeper audit:
 
 - run `./scripts/scan-secrets.sh --history` before first public release
+
+Hooks:
+
+- `./scripts/install-hooks.sh` installs `pre-commit` and `pre-push` checks
 
 If scans fail:
 
