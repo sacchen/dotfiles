@@ -37,9 +37,35 @@ brew bundle --file=homebrew/Brewfile
 
 # 5) Turn on local safety hooks
 ./scripts/install-hooks.sh
+
+# 6) Initialize Rust toolchain (brew installs rustup but not the toolchain itself)
+rustup-init
 ```
 
 Restart your shell after linking.
+
+## Quick Start (Ubuntu)
+
+```bash
+# 1) Clone
+git clone https://github.com/<owner>/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+
+# 2) Install base tooling
+sudo apt update
+sudo apt install -y stow zsh git neovim
+
+# 3) Install Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# 4) Link configs into your home dir
+./scripts/stow-all.sh --adopt
+
+# 5) Turn on local safety hooks
+./scripts/install-hooks.sh
+```
+
+On Ubuntu, `stow-all.sh` links `zsh`, `config`, and `git`. It skips the macOS-only `homebrew` package.
 
 ## Make It Yours
 

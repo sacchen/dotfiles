@@ -57,7 +57,18 @@ opt.list = true
 opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 opt.undofile = true
 
--- Clipboard (Sync with system)
+-- Clipboard (OSC 52 — works over SSH without xclip/xsel)
+vim.g.clipboard = {
+  name = 'OSC 52',
+  copy = {
+    ['+'] = require('vim.ui.clipboard.osc52').copy '+',
+    ['*'] = require('vim.ui.clipboard.osc52').copy '*',
+  },
+  paste = {
+    ['+'] = require('vim.ui.clipboard.osc52').paste '+',
+    ['*'] = require('vim.ui.clipboard.osc52').paste '*',
+  },
+}
 opt.clipboard = 'unnamedplus'
 
 -- [[ 3. Basic Keymaps ]]

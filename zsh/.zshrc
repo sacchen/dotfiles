@@ -1,26 +1,52 @@
-# 1. Environment & Paths
-export PATH="$HOME/.local/bin:$HOME/.bun/bin:$HOME/.lmstudio/bin:$PATH"
-export EXA_COLORS="di=1;34"
 
-# 2. Modern Tool Initializations
+. "$HOME/.local/bin/env"
+export PATH="$HOME/.local/bin:$PATH"
+. "$HOME/.cargo/env"
 eval "$(zoxide init zsh)"
-eval "$(starship init zsh)"
 
-# 4. Modern Coreutils Aliases
-alias ls='eza'
-alias ll='eza -lah'
-alias lt='eza --tree'
-alias grep='rg'
-alias cat='bat --paging=never'
-# alias cd='z'
+if command -v starship >/dev/null 2>&1; then
+  eval "$(starship init zsh)"
+else
+  PROMPT='%n@%m %~ %# '
+fi
 
-# 5. Project & Dev Workflow
-alias va='source .venv/bin/activate'
-alias server='PYTHONPATH=src uv run server.py'
+alias cd="z"
+alias fd="fdfind"
+alias bat="batcat"
+alias tdev='tmux attach -t dev || tmux new -s dev'
 
-# 7. Hardware Hacks
-alias swapcaps="hidutil property --set '{\"UserKeyMapping\":[{\"HIDKeyboardModifierMappingSrc\":0x700000039,\"HIDKeyboardModifierMappingDst\":0x700000029},{\"HIDKeyboardModifierMappingSrc\":0x700000029,\"HIDKeyboardModifierMappingDst\":0x700000039}]}'"
-alias resetcaps="hidutil property --set '{\"UserKeyMapping\":[]}'"
+servercheck() {
+  echo "== Memory =="
+  free -h
+  echo
 
-# Local machine-only settings (tokens, private env vars, private aliases)
-[[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
+  echo "== Swap =="
+  swapon --show
+  echo
+
+  echo "== Disk (/)=="
+  df -h /
+  echo
+
+  echo "== Load =="
+  uptime
+  echo
+
+  echo "== Top Memory =="
+  ps aux --sort=-%mem | head -10
+  echo
+
+  echo "== Top CPU =="
+  ps aux --sort=-%cpu | head -10
+  echo
+
+  echo "== Coordinator =="
+  ps -C uv,uvicorn -o pid,ppid,%cpu,%mem,rss,vsz,etime,cmd
+  echo
+
+  echo "== Codex =="
+  pgrep -af codex || true
+  ps -C codex -o pid,ppid,%cpu,%mem,rss,vsz,etime,cmd 2>/dev/null || true
+}
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
